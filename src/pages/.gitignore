@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+.firebase/
+.cache/
+.env
+*.log
+*.zip
+*.mp4
+*.csv
