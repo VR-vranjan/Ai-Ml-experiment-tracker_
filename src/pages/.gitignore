@@ -8,3 +8,8 @@ dist/
 *.zip
 *.mp4
 *.csv
+venv/
+ml_backend_venv/
+__pycache__/
+*.pyc
+ml_backend/
