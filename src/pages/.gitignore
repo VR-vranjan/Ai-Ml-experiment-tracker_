@@ -4,13 +4,11 @@ node_modules/
 # Python
 venv/
 ml_backend_venv/
-ml_backend/ml_backend_venv/
 __pycache__/
 *.pyc
 
 # ML / data
 datasets/
-ml_backend/datasets/
 
 # Env & secrets
 .env
