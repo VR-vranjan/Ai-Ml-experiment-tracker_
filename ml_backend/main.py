@@ -11,6 +11,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
+from io import BytesIO
 
 # ✅ Corrected imports (must include ml_backend prefix)
 from ml_backend.models.logistic_regression import train_logistic
@@ -58,7 +59,7 @@ async def upload_dataset(file: UploadFile = File(...)):
     try:
         file_bytes = await file.read()
         experiment_hash = hashlib.md5(file_bytes).hexdigest()
-        df = pd.read_csv(pd.io.common.BytesIO(file_bytes))
+        df = pd.read_csv(BytesIO(file_bytes))
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error reading CSV: {str(e)}")
 
@@ -101,8 +102,11 @@ async def upload_dataset(file: UploadFile = File(...)):
     if y.nunique() > 1:
         try:
             # Try numeric encoding if possible
-            y = pd.to_numeric(y, errors='ignore')
-            if y.dtype == 'object':
+            y = y.astype(str).str.strip()
+
+            try:
+                y = pd.to_numeric(y)
+            except:
                 y = LabelEncoder().fit_transform(y)
         except Exception:
             y = LabelEncoder().fit_transform(y)

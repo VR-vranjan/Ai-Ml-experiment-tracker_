@@ -11,6 +11,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import StatusPieChart from "../components/statuschart";
 import PerformanceLineChart from "../components/performance";
 import MetricsLineChart from "../components/MetricsLineChart";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -35,35 +36,46 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    if (!auth.currentUser) {
+  let unsubscribeFirestore;
+
+  const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    if (!user) {
       navigate("/login");
       return;
     }
 
-    setUser(auth.currentUser);
+    setUser(user);
     setLoading(true);
 
     const q = query(
       collection(db, "experiments"),
-      where("createdBy", "==", auth.currentUser.uid)
+      where("createdBy", "==", user.uid)
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setExperiments(data);
+    unsubscribeFirestore = onSnapshot(
+      q,
+      (snapshot) => {
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-      const total = data.length;
-      const completedCount = data.filter(isCompleted).length;
-      setStats({
-        total,
-        completed: completedCount,
-        inProgress: total - completedCount,
-      });
-      setLoading(false);
-    });
+        console.log("🔥 FIRESTORE DATA:", data);
 
-    return () => unsubscribe();
-  }, [navigate]);
+        setExperiments(data);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("❌ SNAPSHOT ERROR:", error);
+      }
+    );
+  });
+
+  return () => {
+    unsubscribeAuth();
+    if (unsubscribeFirestore) unsubscribeFirestore();
+  };
+}, [navigate]);
 
   if (loading) return <Loader />;
 

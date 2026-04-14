@@ -1,8 +1,10 @@
 fastapi
+uvicorn
 python-multipart
+
 pandas
+numpy
 scikit-learn
 joblib
+
 firebase-admin
-torch
-tensorflow

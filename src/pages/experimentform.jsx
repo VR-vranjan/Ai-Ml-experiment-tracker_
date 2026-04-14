@@ -4,6 +4,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebase";
 import Loader from "../components/loader";
 import axios from "axios";
+import { addDoc, collection } from "firebase/firestore";
 
 const ExperimentForm = () => {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ const ExperimentForm = () => {
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
   const handleSubmit = async (e) => {
+    if (!auth.currentUser) {
+      setError("User not logged in");
+      return;
+    }
     e.preventDefault();
     if (!file) return alert("Please select a CSV file!");
 
@@ -38,7 +43,7 @@ const ExperimentForm = () => {
         name: formData.name || file.name.split(".")[0],
         description: formData.description,
         status: "Completed",
-        createdBy: auth.currentUser?.uid || "unknown",
+        createdBy: auth.currentUser.uid,
         metrics: res.data?.metrics || {},
         hyperparameters: res.data?.hyperparameters || {},
         experimentId: res.data?.experimentId || "",
@@ -46,14 +51,15 @@ const ExperimentForm = () => {
       };
 
       // Use experiment name as document ID
-      const experimentRef = doc(db, "experiments", experimentData.name);
-      await setDoc(experimentRef, experimentData, { merge: true });
+    
+
+await addDoc(collection(db, "experiments"), experimentData);
 
       navigate("/landing");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.detail || err.message);
-    }
+  console.error("UPLOAD ERROR:", err.response?.data || err.message);
+  setError(err.response?.data?.detail || err.message);
+}
 
     setLoading(false);
   };
