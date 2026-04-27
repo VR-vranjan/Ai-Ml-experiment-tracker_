@@ -1,16 +1,222 @@
-# React + Vite
+# 🚀 AI/ML Experiment Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application to **upload datasets, train multiple ML models, and visualize performance metrics** in an interactive dashboard.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Project Overview
 
-## React Compiler
+The AI/ML Experiment Tracker allows users to:
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Upload CSV datasets  
+- Automatically train multiple ML models  
+- Track experiment performance  
+- Visualize metrics using interactive charts  
+- Manage experiments (view, delete, analyze)  
 
-## Expanding the ESLint configuration
+This project combines **Machine Learning + Full Stack Development + Cloud Integration**, making it ideal for real-world ML workflows.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧠 Features
+
+### 🔹 Authentication
+- User signup & login using Firebase Authentication
+
+### 🔹 Dataset Upload & Processing
+- Upload CSV datasets
+- Automatic preprocessing:
+  - Missing value handling
+  - Encoding categorical variables
+  - Feature scaling
+
+### 🔹 ML Model Training
+Trains multiple models automatically:
+- Logistic Regression  
+- K-Nearest Neighbors (KNN)  
+- Support Vector Machine (SVM)  
+- Decision Tree  
+- Random Forest  
+
+### 🔹 Metrics Calculation
+For each model:
+- Accuracy  
+- Precision  
+- Recall  
+- F1 Score  
+
+---
+
+### 📊 Dashboard & Visualization
+- Experiment summary cards:
+  - Total experiments
+  - Completed / In-progress
+- Charts:
+  - Status Pie Chart
+  - Performance Trend Line Chart
+  - Model-wise Metrics Charts
+- Intelligent insights:
+  - Best performing model
+  - Dataset performance trends
+  - Anomaly detection
+
+---
+
+### 🗂 Experiment Management
+- View all experiments  
+- Delete experiments  
+- Detailed experiment view  
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React.js  
+- Tailwind CSS  
+- Recharts  
+
+### Backend
+- FastAPI  
+- Python  
+
+### Machine Learning
+- Scikit-learn  
+- Pandas  
+- NumPy  
+
+### Database & Auth
+- Firebase Firestore  
+- Firebase Authentication  
+
+---
+
+## 📁 Project Structure
+
+```
+AI-ML-Experiment-Tracker/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── services/
+│   │   └── App.jsx
+│
+├── ml_backend/
+│   ├── main.py
+│   ├── models/
+│   │   ├── logistic_regression.py
+│   │   ├── knn.py
+│   │   ├── svm.py
+│   │   ├── decision_tree.py
+│   │   └── random_forest.py
+│
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🔹 1. Clone Repository
+```bash
+git clone https://github.com/VR-vranjan/Ai-Ml-experiment-tracker_.git
+cd Ai-Ml-experiment-tracker_
+```
+
+---
+
+### 🔹 2. Backend Setup (FastAPI)
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+Run backend:
+```bash
+uvicorn ml_backend.main:app --reload
+```
+
+---
+
+### 🔹 3. Frontend Setup (React)
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+### 🔹 4. Firebase Setup
+
+- Create project in Firebase
+- Enable Authentication (Email/Password)
+- Enable Firestore Database
+- Add config in:
+
+```js
+src/services/firebase.js
+```
+
+---
+
+## 📊 Dataset Format
+
+- Must be CSV file  
+- Last column should be target variable  
+- Must contain at least 2 classes  
+
+---
+
+## ⚠️ Important Notes
+
+- Dataset must have:
+  - At least 1 feature column  
+  - 1 target column  
+- Target column must have multiple classes  
+
+---
+
+## 🚀 Future Improvements
+
+- Model comparison dashboard  
+- Hyperparameter tuning UI  
+- Model export/download  
+- Docker-based execution environment  
+- Deployment (Vercel + Render)  
+
+---
+
+## 📸 Screenshots
+
+(Add screenshots here)
+
+---
+
+## 👩‍💻 Author
+
+**Vaishnavi Ranjan**  
+B.E. Computer Engineering (2022–2026)  
+CGPA: 9.14  
+
+---
+
+## 📬 Contact
+
+📧 vranjan00700@gmail.com  
+🔗 https://github.com/VR-vranjan  
+
+---
+
+## ⭐ Why This Project Stands Out
+
+- Combines **AI/ML + Full Stack + Cloud**
+- Real-world experiment tracking system
+- Interactive dashboards with insights
+- Scalable and production-ready architecture
