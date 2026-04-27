@@ -202,8 +202,7 @@ src/services/firebase.js
 ## 👩‍💻 Author
 
 **Vaishnavi Ranjan**  
-B.E. Computer Engineering (2022–2026)  
-CGPA: 9.14  
+B.E. Computer Engineering (2022–2026)    
 
 ---
 
