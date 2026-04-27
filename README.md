@@ -193,12 +193,6 @@ src/services/firebase.js
 
 ---
 
-## 📸 Screenshots
-
-(Add screenshots here)
-
----
-
 ## 👩‍💻 Author
 
 **Vaishnavi Ranjan**  
